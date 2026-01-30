@@ -15,8 +15,8 @@ class PowerResource extends JsonResource
             'id' => $this->id,
             'power' => $this->power,
             'power_level' => $this->power_level,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+
+
         ];
     }
 }

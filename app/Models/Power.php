@@ -13,5 +13,12 @@ class Power extends Model
     protected $fillable = [
         'power',
         'power_level',
+        'hero_id'
     ];
+
+    public function images()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
+

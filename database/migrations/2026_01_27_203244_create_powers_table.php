@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('power');
             $table->integer('power_level');
+            $table->integer('hero_id');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -18,7 +19,6 @@ return new class extends Migration {
 
     public function down(): void
     {
-
         Schema::dropIfExists('powers');
     }
 };
