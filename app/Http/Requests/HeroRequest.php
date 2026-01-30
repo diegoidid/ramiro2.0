@@ -25,6 +25,12 @@ class HeroRequest extends FormRequest
             'name' => 'required|string|max:255',
             'age' => 'required|integer|min:0',
             'image_url' => 'required|url',
+            'power' => 'required|string|max:255',
+            'power_level' => 'sometimes|integer|min:0',
+            'power_image_url' => 'sometimes|url',
+            'planet' => 'sometimes|string|max:255',
+            'color' => 'sometimes|string|max:255',
+            'planet_url' => 'sometimes|url',
         ];
     }
 
@@ -35,6 +41,7 @@ class HeroRequest extends FormRequest
             'age.required' => 'The age is required',
             'image_url.required' => 'The image URL is required',
             'image_url.url' => 'The image URL must be a valid URL'
+
         ];
     }
 }

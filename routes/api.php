@@ -11,4 +11,6 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
+Route::apiResource('heroes', App\Http\Controllers\HeroController::class);
+
 
