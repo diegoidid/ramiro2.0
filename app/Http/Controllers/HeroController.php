@@ -24,7 +24,6 @@ public function store(HeroRequest $request) {
 
     $data = Http::post('https://untabulable-incomparable-lean.ngrok-free.dev/api/power', [
       'power' => $request->power,
-  
       'hero_id' => $hero->id,
       'power_image_url' => $request->power_image_url ?? null,
       'power_level' => $request->power_level ?? null,
