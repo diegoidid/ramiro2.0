@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('planets', function (Blueprint $table) {
             $table->id();
+            $table->string('planet');
+            $table->string('color');
+            $table->integer('hero_id')->unique();
             $table->timestamps();
         });
     }
