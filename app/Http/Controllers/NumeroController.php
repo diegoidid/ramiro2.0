@@ -19,10 +19,9 @@ class NumeroController extends Controller
         $numero = Numero::create([
             'numero' => $request->numero
         ]);
-        sleep(1);
         $n = $numero->numero + 1;
-        Http::post('https://oma-filterable-atomistically.ngrok-free.dev/api/number', [
-            'number' => $n
+        Http::withOptions(["verify" => false])->post('https://waterworn-contentiously-gilberto.ngrok-free.dev/api/number', [
+            'num' => $n
         ]);
     }
 
