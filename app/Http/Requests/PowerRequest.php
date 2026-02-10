@@ -13,7 +13,6 @@ class PowerRequest extends FormRequest
             'power_level' => ['required', 'integer'],
         ];
     }
-
     public function authorize(): bool
     {
         return true;
