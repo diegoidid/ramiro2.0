@@ -8,16 +8,14 @@ use App\Http\Resources\PowerResource;
 use App\Models\Power;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-
+use Illuminate\Support\Facades\Log;
 class PowerController extends Controller
 {
 
     use apiResponse;
 
-    private $apiResponse;
-    private $apiResponse1;
 
-    public function store(Request $request)
+    public function store(PowerRequest $request)
     {
         $power = Power::create([
             'power' => $request->power,
@@ -27,18 +25,30 @@ class PowerController extends Controller
         $power->images()->create([
             'image_url' => $request->power_image_url,
         ]);
-
-        $planetResponse = Http::post('https://waterworn-contentiously-gilberto.ngrok-free.dev/api/planet', [
-            'planet' => $request->planet,
-            'color' => $request->color,
-            'hero_id' => $request->hero_id,
-            'planet_url' => $request->planet_url
-
-        ]);
-
-
+        $autresponse = Http::withoutVerifying()->post(
+            'https://waterworn-contentiously-gilberto.ngrok-free.dev/api/login',
+            [
+                'email' => 'diego@example.com',
+                'password' => 'password123'
+            ]
+        );
+        if (!$autresponse->successful()) {
+            return $this->errorResponse("Authentication failed", 401);
+        }
+        $heroToken = $autresponse->json('data.token');
+        $planetResponse = Http::withoutVerifying()
+            ->withToken($heroToken)
+            ->withHeaders(['Accept' => 'application/json'])
+            ->post(
+                'https://waterworn-contentiously-gilberto.ngrok-free.dev/api/planet',
+                [
+                    'planet' => $request->planet,
+                    'color' => $request->color,
+                    'hero_id' => $request->hero_id,
+                    'planet_url' => $request->planet_url
+                ]
+            );
         $planet = $planetResponse->json();
-
         return $this->apiResponse([
             'power' => new PowerResource($power),
             'planet' => $planet
